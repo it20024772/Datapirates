@@ -158,3 +158,15 @@ public class reviewShow extends AppCompatActivity {
             }
         });
     }
+    private void buildRecyclerView() {
+        recyclerView = findViewById(R.id.reviewlist);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        list = new ArrayList<>();
+        reviewListAdapter = new reviewListAdapter(this,list);
+        recyclerView.setAdapter(reviewListAdapter);
+    }
+}
+
+
+
