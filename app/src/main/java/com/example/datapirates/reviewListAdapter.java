@@ -55,3 +55,57 @@ public class reviewListAdapter extends RecyclerView.Adapter<reviewListAdapter.re
     public int getItemCount() {
         return list.size();
     }
+
+    public static class reviewListViewHolder extends RecyclerView.ViewHolder{
+
+        TextView reviewKey, bookName, description;
+        RatingBar rating;
+        Button btnEdit, btnDelete;
+
+        public reviewListViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+            super(itemView);
+
+            reviewKey = itemView.findViewById(R.id.reviewKey);
+            bookName = itemView.findViewById(R.id.review_bookname);
+            description = itemView.findViewById(R.id.review_description);
+            rating = itemView.findViewById(R.id.reviewRatingBar);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            listener.onDelete(reviewKey.getText().toString(), bookName.getText().toString(), position);
+                        }
+
+                    }
+
+                }
+            });
+
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            String reviewKey_txt = reviewKey.getText().toString();
+                            String bookName_txt = bookName.getText().toString();
+                            String description_txt = description.getText().toString();
+                            String rating_txt = String.valueOf(rating.getRating());
+
+                            listener.onUpdate(reviewKey_txt, bookName_txt, description_txt, rating_txt, position);
+                        }
+
+                    }
+
+                }
+            });
+
+        }
+    }
+}
+
