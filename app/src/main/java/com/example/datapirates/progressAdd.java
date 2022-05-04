@@ -21,3 +21,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class progressAdd extends AppCompatActivity {
+
+    private EditText bookName, totalPages, currentPage;
+    private FloatingActionButton savebtn;
+    private ImageView backArrow;
+
+    FirebaseAuth auth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    Progress progress;
+    String userId;
