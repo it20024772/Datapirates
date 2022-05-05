@@ -31,3 +31,47 @@ public class progressAdd extends AppCompatActivity {
     DatabaseReference databaseReference;
     Progress progress;
     String userId;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.progress_add);
+
+        savebtn = findViewById(R.id.progressSavebtn);
+        backArrow = findViewById(R.id.backArrow);
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        userId = user.getUid();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Progress").child(userId);
+        progress = new Progress();
+
+        savebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                bookName = findViewById(R.id.edtCurrentBookName);
+                totalPages = findViewById(R.id.edtTotalPages);
+                currentPage = findViewById(R.id.edtCurrentPage);
+
+                String bookName_txt = bookName.getText().toString();
+                String totalPages_txt =totalPages.getText().toString();
+                String currentPge_txt = currentPage.getText().toString();
+
+                // validations
+                if (TextUtils.isEmpty(bookName_txt)) {
+                    Toast.makeText(progressAdd.this, "Please enter book name", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(totalPages_txt)) {
+                    Toast.makeText(progressAdd.this, "Please enter total pages", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(currentPge_txt)) {
+                    Toast.makeText(progressAdd.this, "Please enter current page", Toast.LENGTH_SHORT).show();
+                } else {
+                    saveData(bookName_txt,totalPages_txt, currentPge_txt );
+                }
+
+            }
+        });
