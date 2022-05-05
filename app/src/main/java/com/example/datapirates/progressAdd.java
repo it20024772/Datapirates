@@ -95,4 +95,24 @@ public class progressAdd extends AppCompatActivity {
         progress.setTotalPages(totalPages_int);
         progress.setCurrentPage(currentPage_int);
 
+        // add to database
+        databaseReference.setValue(progress).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(progressAdd.this, "Progress Created", Toast.LENGTH_SHORT).show();
+                    // got to goal display page
+                    Intent goalShow = new Intent(progressAdd.this,progressShow.class);
+                    startActivity(goalShow);
+                    finish();
+                }
+                else{
+                    Toast.makeText(progressAdd.this, "An error occurred. Please try again later.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+}
 
