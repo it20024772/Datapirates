@@ -32,8 +32,6 @@ public class progressAdd extends AppCompatActivity {
     Progress progress;
     String userId;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,3 +73,26 @@ public class progressAdd extends AppCompatActivity {
 
             }
         });
+
+        // back button functionality
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // got to dashboard
+                Intent Dashboard = new Intent(progressAdd.this, Dashboard.class);
+                startActivity(Dashboard);
+                finish();
+            }
+        });
+    }
+
+    private void saveData(String bookName_txt, String totalPages_txt, String currentPge_txt) {
+
+        int totalPages_int = Integer.parseInt(totalPages_txt);
+        int currentPage_int = Integer.parseInt(currentPge_txt);
+
+        progress.setBookName(bookName_txt);
+        progress.setTotalPages(totalPages_int);
+        progress.setCurrentPage(currentPage_int);
+
+
