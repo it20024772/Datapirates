@@ -71,3 +71,18 @@ public class calcReadingTime extends AppCompatActivity {
 
             }
         });
+
+        // back button functionality
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // got to dashboard
+                Intent Dashboard = new Intent(calcReadingTime.this, Dashboard.class);
+                startActivity(Dashboard);
+                finish();
+            }
+        });
+
+    }
+}
+
