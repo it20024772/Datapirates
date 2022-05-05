@@ -54,8 +54,11 @@ public class readingListUpdate extends AppCompatActivity {
         backArrow = findViewById(R.id.backArrow);
         savebtn = findViewById(R.id.rluSavebtn);
 
+        // get elements in the form
         title = findViewById(R.id.edtTitleUpdate);
         author = findViewById(R.id.edtAuthorUpdate);
+
+        //checkboxes
         fantasy = findViewById(R.id.cbFantasyUpdate);
         romance = findViewById(R.id.cbRomanceUpdate);
         scifi = findViewById(R.id.cbSciFiUpdate);
@@ -63,6 +66,7 @@ public class readingListUpdate extends AppCompatActivity {
         mystery = findViewById(R.id.cbMysteryUpdate);
         nonfiction = findViewById(R.id.cbNonFiUpdate);
 
+        // get data from the intents
         String bookKey = getIntent().getStringExtra("bookKey");
         String bookExtra = getIntent().getStringExtra("title");
         String authorExtra = getIntent().getStringExtra("author");
@@ -73,8 +77,10 @@ public class readingListUpdate extends AppCompatActivity {
 
         String [] genres = genre.split(", ");
 
+        // check the selected checkboxes
         checkCheckBoxes(genres);
 
+        // when save btn is clicked
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -197,6 +203,7 @@ public class readingListUpdate extends AppCompatActivity {
 
         if (TextUtils.isEmpty(title_txt)){
             Toast.makeText(readingListUpdate.this,"Please enter title", Toast.LENGTH_LONG).show();
+
         }
         else if(TextUtils.isEmpty(author_txt)){
             Toast.makeText(readingListUpdate.this,"Please enter author", Toast.LENGTH_LONG).show();
