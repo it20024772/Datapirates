@@ -203,16 +203,13 @@ public class readingListUpdate extends AppCompatActivity {
 
         if (TextUtils.isEmpty(title_txt)){
             Toast.makeText(readingListUpdate.this,"Please enter title", Toast.LENGTH_LONG).show();
-            return isValid;
 
         }
         else if(TextUtils.isEmpty(author_txt)){
             Toast.makeText(readingListUpdate.this,"Please enter author", Toast.LENGTH_LONG).show();
-            return isValid;
         }
         else if (TextUtils.isEmpty(genre_txt)){
             Toast.makeText(readingListUpdate.this,"Please select the genre", Toast.LENGTH_LONG).show();
-            return isValid;
         }
         else{
             isValid = true;
