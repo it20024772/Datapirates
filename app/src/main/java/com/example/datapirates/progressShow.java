@@ -46,3 +46,49 @@ public class progressShow extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private String userId;
     Progress progress;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        dialog = new ProgressDialog(progressShow.this);
+        dialog.setMessage("loading...");
+        dialog.show();
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        userId = user.getUid();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Progress").child(userId);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()){
+                    // got to add progress
+                    Intent progressAdd = new Intent(progressShow.this,progressAdd.class);
+                    startActivity(progressAdd);
+                    finish();
+                }
+                else{
+                    progress = snapshot.getValue(Progress.class);
+                    setContentView(R.layout.progress_show);
+
+                    dialog.hide();
+
+                    savebtn = findViewById(R.id.saveProgressUpdateBtn);
+                    backArrow = findViewById(R.id.backArrow);
+                    addProgress = findViewById(R.id.addProgressBtn);
+                    deleteProgress = findViewById(R.id.deleteProgressBtn);
+                    editBookName = findViewById(R.id.progressBookNameEditImg);
+                    editTotalPages = findViewById(R.id.totalPagesEditImg);
+                    editCurrentPage = findViewById(R.id.currentPageditImg);
+
+                    bookName = findViewById(R.id.edtProgressBookNameUpdate);
+                    totalPages = findViewById(R.id.edtTotalPagesUpdate);
+                    currentPage = findViewById(R.id.edtCurrentPageUpdate);
+                    progressBar = findViewById(R.id.progressBar);
+                    progressPercentTxt = findViewById(R.id.progressPercentTxt);
+
