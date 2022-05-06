@@ -139,3 +139,62 @@ public class goalShow extends AppCompatActivity {
                             imm.showSoftInput(durationHours, InputMethodManager.SHOW_IMPLICIT);
                         }
                     });
+
+                    btnSetTime.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                                @Override
+                                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                    hour = selectedHour;
+                                    minute = selectedMinute;
+                                    btnSetTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+
+                                    c = Calendar.getInstance();
+                                    c.set(Calendar.HOUR_OF_DAY, hour);
+                                    c.set(Calendar.MINUTE, minute);
+                                    c.set(Calendar.SECOND, 0);
+                                }
+                            };
+
+                            TimePickerDialog timePickerDialog = new TimePickerDialog(goalShow.this, onTimeSetListener, hour, minute, true);
+                            timePickerDialog.setTitle("Select time");
+                            timePickerDialog.show();
+                        }
+                    });
+
+                    savebtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // set notification for reminder
+                            if (c != null){
+                                if (reminderBox.isChecked()) {
+                                    Intent intent = new Intent(goalShow.this, reminderBroadcast.class);
+                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(goalShow.this, 0, intent, 0);
+                                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                                    long nowtime = System.currentTimeMillis();
+                                    long add = 1000 * 10;
+                                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+                                }
+                            }
+
+                            String bookName_txt = bookName.getText().toString();
+                            String durationHours_txt = durationHours.getText().toString();
+                            String durationMinutes_txt = durationMinutes.getText().toString();
+
+                            // validations
+                            if (TextUtils.isEmpty(bookName_txt)) {
+                                Toast.makeText(goalShow.this, "Please enter book name", Toast.LENGTH_SHORT).show();
+                            } else if (TextUtils.isEmpty(durationHours_txt)) {
+                                Toast.makeText(goalShow.this, "Please enter duration hours", Toast.LENGTH_SHORT).show();
+                            } else if (TextUtils.isEmpty(durationMinutes_txt)) {
+                                Toast.makeText(goalShow.this, "Please enter duration minutes", Toast.LENGTH_SHORT).show();
+                            } else {
+                                saveData(bookName_txt, durationHours_txt, durationMinutes_txt, hour, minute);
+                            }
+
+
+                        }
+                    });
+
