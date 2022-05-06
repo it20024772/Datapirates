@@ -226,3 +226,61 @@ public class progressShow extends AppCompatActivity {
 
                         }
                     });
+
+
+
+                    // back button functionality
+                    backArrow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // got to dashboard
+                            Intent Dashboard = new Intent(progressShow.this, Dashboard.class);
+                            startActivity(Dashboard);
+                            finish();
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+    public static int calcPercentage(int savedCurrentPage, int savedTotalPages) {
+        int progressPercentage = Math.round(((float)savedCurrentPage / savedTotalPages) * 100);
+        return progressPercentage;
+    }
+
+    private void saveData(String bookName_txt, String totalPages_txt, String currentPge_txt) {
+        int totalPages_int = Integer.parseInt(totalPages_txt);
+        int currentPage_int = Integer.parseInt(currentPge_txt);
+
+        progress.setBookName(bookName_txt);
+        progress.setTotalPages(totalPages_int);
+        progress.setCurrentPage(currentPage_int);
+
+        // add to database
+        databaseReference.setValue(progress).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(progressShow.this, "Progress Updated", Toast.LENGTH_SHORT).show();
+                    // got to progress display page
+                    Intent progressShow = new Intent(progressShow.this,progressShow.class);
+                    startActivity(progressShow);
+                    finish();
+                }
+                else{
+                    Toast.makeText(progressShow.this, "An error occurred. Please try again later.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
