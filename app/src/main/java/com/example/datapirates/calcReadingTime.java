@@ -78,3 +78,21 @@ public class calcReadingTime extends AppCompatActivity {
         });
 
     }
+
+    public static int[] findReadingTime(int pagesRead, int totalPages, int timeTaken) {
+        float pagesPerMinute = (float) timeTaken / pagesRead;
+        int totalTime = Math.round(pagesPerMinute * totalPages);
+        int results [] = {0,0};
+
+        int hours = totalTime / 60;
+        int minutes = totalTime % 60;
+
+        results[0] = hours;
+        results[1] = minutes;
+
+        return results;
+
+
+    }
+}
+
