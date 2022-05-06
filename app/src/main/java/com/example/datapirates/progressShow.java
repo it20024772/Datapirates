@@ -163,3 +163,66 @@ public class progressShow extends AppCompatActivity {
 
                         }
                     });
+
+                    deleteProgress.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(progressShow.this);
+                            alertDialog.setTitle("Are you sure you want to delete your progress?");
+
+                            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //set what would happen when positive button is clicked
+                                    databaseReference.removeValue();
+                                    // got to add progress
+                                    Intent goalAdd = new Intent(progressShow.this,progressAdd.class);
+                                    startActivity(goalAdd);
+                                    finish();
+                                }
+                            });
+
+                            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //set what should happen when negative button is clicked
+                                }
+                            });
+
+                            alertDialog.show();
+
+                        }
+                    });
+
+                    addProgress.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(progressShow.this);
+                            alertDialog.setTitle("Are you sure you want add new progress?");
+                            alertDialog.setMessage("Adding new progress will delete current progress");
+
+                            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //set what would happen when positive button is clicked
+                                    // got to add progress
+                                    Intent goalAdd = new Intent(progressShow.this,progressAdd.class);
+                                    startActivity(goalAdd);
+                                    finish();
+                                }
+                            });
+
+                            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //set what should happen when negative button is clicked
+                                }
+                            });
+
+                            alertDialog.show();
+
+
+                        }
+                    });
