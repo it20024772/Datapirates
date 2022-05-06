@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         // check if a user is logged in
         if (user == null) {
-            // got o launch page
+            // go to launch page
             Intent launchScreen = new Intent(MainActivity.this,launchScreen.class);
             startActivity(launchScreen);
             finish();

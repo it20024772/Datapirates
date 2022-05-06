@@ -87,6 +87,7 @@ public class readingListShow extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //set what would happen when positive button is clicked
                         DatabaseReference newRef = databaseReference.child(bookKey);
+                        // delete the book
                         newRef.removeValue();
                         list.remove(position);
                         readingListAdapter.notifyItemRemoved(position);
