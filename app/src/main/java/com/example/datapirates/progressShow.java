@@ -227,8 +227,6 @@ public class progressShow extends AppCompatActivity {
                         }
                     });
 
-
-
                     // back button functionality
                     backArrow.setOnClickListener(new View.OnClickListener() {
                         @Override
