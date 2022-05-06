@@ -46,16 +46,15 @@ public class readingListShow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reading_list_show);
 
-
+        // diaplay dialog until data is fetched
         dialog = new ProgressDialog(readingListShow.this);
         dialog.setMessage("loading...");
         dialog.show();
 
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        userId = user.getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Books").child(userId);
+        // create firebase connections
+        firebaseconnections();
 
+        //build recycler view
         buildRecyclerView();
 
         addbtn = findViewById(R.id.addbtn);
@@ -74,6 +73,7 @@ public class readingListShow extends AppCompatActivity {
         fetchDataAndDisplay();
 
 
+        // when an item is clicked
         readingListAdapter.setOnItemClickListener(new readingListAdapter.OnItemClickListener() {
             @Override
             public void onDelete(String bookKey, String title, int position) {
@@ -122,6 +122,7 @@ public class readingListShow extends AppCompatActivity {
             }
         });
 
+        // when email btn is clicked
         emailbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,6 +151,13 @@ public class readingListShow extends AppCompatActivity {
 
 
 
+    }
+
+    private void firebaseconnections() {
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        userId = user.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Books").child(userId);
     }
 
     private void fetchDataAndDisplay() {
