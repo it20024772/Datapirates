@@ -54,16 +54,10 @@ public class calcReadingTime extends AppCompatActivity {
                     int totalPages = Integer.parseInt(edtTotalPages_txt);
                     int timeTaken = Integer.parseInt(edtTimeTaken_txt);
 
-                    float pagesPerMinute = (float) timeTaken / pagesRead;
-                    int totalTime = Math.round(pagesPerMinute * totalPages);
-
-                    int hours = totalTime / 60;
-                    int minutes = totalTime % 60;
-
+                    int [] results = findReadingTime(pagesRead, totalPages,timeTaken);
+                    hoursTxt.setText(String.valueOf(results[0]));
+                    minutesTxt.setText(String.valueOf(results[1]));
                     Toast.makeText(calcReadingTime.this, "Time Calculated", Toast.LENGTH_SHORT).show();
-
-                    hoursTxt.setText(String.valueOf(hours));
-                    minutesTxt.setText(String.valueOf(minutes));
 
                 }
 
@@ -84,5 +78,3 @@ public class calcReadingTime extends AppCompatActivity {
         });
 
     }
-}
-
