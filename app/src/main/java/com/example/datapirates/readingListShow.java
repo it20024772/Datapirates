@@ -52,7 +52,7 @@ public class readingListShow extends AppCompatActivity {
         dialog.show();
 
         // create firebase connections
-        firebaseconnections();
+        connectfirebase();
 
         //build recycler view
         buildRecyclerView();
@@ -153,7 +153,7 @@ public class readingListShow extends AppCompatActivity {
 
     }
 
-    private void firebaseconnections() {
+    private void connectfirebase() {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         userId = user.getUid();

@@ -43,12 +43,8 @@ public class readingListUpdate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reading_list_update);
 
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        userId = user.getUid();
+        connectfirebase();
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Books").child(userId);
         book = new Book();
 
         backArrow = findViewById(R.id.backArrow);
@@ -107,6 +103,15 @@ public class readingListUpdate extends AppCompatActivity {
 
 
 
+    }
+
+    private void connectfirebase() {
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        userId = user.getUid();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Books").child(userId);
     }
 
     private void updateData(String bookKey, String title_txt, String author_txt, String genre_txt) {
