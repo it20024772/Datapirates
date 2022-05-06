@@ -262,6 +262,41 @@ public class goalShow extends AppCompatActivity {
                         }
                     });
 
+                    // back button functionality
+                    backArrow.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // got to dashboard
+                            Intent Dashboard = new Intent(goalShow.this, Dashboard.class);
+                            startActivity(Dashboard);
+                            finish();
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void saveData(String bookName_txt, String durationHours_txt, String durationMinutes_txt, int hour, int minute) {
+        String time;
+
+        if (c==null){
+            time = goal.getStartTime();
+        }
+        else {
+            time = String.format(Locale.getDefault(), "%02d:%02d",hour,minute);
+        }
+
+
+
+
 
 
 
