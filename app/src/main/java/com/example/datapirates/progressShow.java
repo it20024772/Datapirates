@@ -47,7 +47,6 @@ public class progressShow extends AppCompatActivity {
     private String userId;
     Progress progress;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,3 +107,59 @@ public class progressShow extends AppCompatActivity {
                     progressBar.setProgress(progressPercentage);
                     progressPercentTxt.setText(String.valueOf(progressPercentage));
 
+
+                    editBookName.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            bookName.setEnabled(true);
+                            bookName.requestFocus();
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.showSoftInput(bookName, InputMethodManager.SHOW_IMPLICIT);
+                        }
+                    });
+
+                    editTotalPages.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            totalPages.setEnabled(true);
+
+                            totalPages.requestFocus();
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.showSoftInput(totalPages, InputMethodManager.SHOW_IMPLICIT);
+                        }
+                    });
+
+                    editCurrentPage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            currentPage.setEnabled(true);
+
+                            currentPage.requestFocus();
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.showSoftInput(currentPage, InputMethodManager.SHOW_IMPLICIT);
+                        }
+                    });
+
+
+                    savebtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            String bookName_txt = bookName.getText().toString();
+                            String totalPages_txt =totalPages.getText().toString();
+                            String currentPge_txt = currentPage.getText().toString();
+
+                            // validations
+                            if (TextUtils.isEmpty(bookName_txt)) {
+                                Toast.makeText(progressShow.this, "Please enter book name", Toast.LENGTH_SHORT).show();
+                            } else if (TextUtils.isEmpty(totalPages_txt)) {
+                                Toast.makeText(progressShow.this, "Please enter total pages", Toast.LENGTH_SHORT).show();
+                            } else if (TextUtils.isEmpty(currentPge_txt)) {
+                                Toast.makeText(progressShow.this, "Please enter current page", Toast.LENGTH_SHORT).show();
+                            } else {
+                                saveData(bookName_txt,totalPages_txt, currentPge_txt );
+                            }
+
+
+                        }
+                    });
