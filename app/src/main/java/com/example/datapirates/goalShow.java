@@ -294,6 +294,55 @@ public class goalShow extends AppCompatActivity {
             time = String.format(Locale.getDefault(), "%02d:%02d",hour,minute);
         }
 
+        // add details to the goal object
+        goal.setName(bookName_txt);
+        goal.setDurationHours(durationHours_txt);
+        goal.setDurationMinutes(durationMinutes_txt);
+        goal.setStartTime(time);
+
+        if (reminderBox.isChecked()){
+            goal.setRemind(true);
+        }
+        else {
+            goal.setRemind(false);
+        }
+
+        // add to database
+        databaseReference.setValue(goal).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(goalShow.this, "Goal Updated", Toast.LENGTH_SHORT).show();
+                    // got to goal display page
+                    Intent goalShow = new Intent(goalShow.this,goalShow.class);
+                    startActivity(goalShow);
+                    finish();
+                }
+                else{
+                    Toast.makeText(goalShow.this, "An error occurred. Please try again later.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "BookwormReminderChannel";
+            String description = "Channel to remind reading goal time";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyBookworm", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+}
+
+
+
+
 
 
 
