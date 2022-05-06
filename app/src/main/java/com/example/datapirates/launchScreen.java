@@ -25,8 +25,8 @@ public class launchScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // got to dashboard
-//                Intent signUp = new Intent(launchScreen.this,signUp.class);
-//                startActivity(signUp);
+                Intent signUp = new Intent(launchScreen.this,signUp.class);
+                startActivity(signUp);
                 finish();
             }
         });
