@@ -92,3 +92,19 @@ public class progressShow extends AppCompatActivity {
                     progressBar = findViewById(R.id.progressBar);
                     progressPercentTxt = findViewById(R.id.progressPercentTxt);
 
+
+                    bookName.setText(progress.getBookName());
+                    bookName.setEnabled(false);
+
+                    int savedTotalPages = progress.getTotalPages();
+                    int savedCurrentPage = progress.getCurrentPage();
+                    totalPages.setText(String.valueOf(savedTotalPages));
+                    totalPages.setEnabled(false);
+                    currentPage.setText(String.valueOf(savedCurrentPage));
+                    currentPage.setEnabled(false);
+
+                    int progressPercentage = calcPercentage(savedCurrentPage,savedTotalPages);
+
+                    progressBar.setProgress(progressPercentage);
+                    progressPercentTxt.setText(String.valueOf(progressPercentage));
+
