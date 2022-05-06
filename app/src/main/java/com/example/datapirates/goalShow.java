@@ -230,5 +230,41 @@ public class goalShow extends AppCompatActivity {
                     });
 
 
+                    addGoal.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(goalShow.this);
+                            alertDialog.setTitle("Are you sure you want add a new goal?");
+                            alertDialog.setMessage("Adding a new goal will delete the current goal");
+
+                            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //set what would happen when positive button is clicked
+                                    // got to add goals
+                                    Intent goalAdd = new Intent(goalShow.this,goalAdd.class);
+                                    startActivity(goalAdd);
+                                    finish();
+                                }
+                            });
+
+                            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //set what should happen when negative button is clicked
+                                }
+                            });
+
+                            alertDialog.show();
+
+
+                        }
+                    });
+
+
+
+
+
 
 
